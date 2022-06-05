@@ -45,23 +45,22 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
         return;
       }
 
+      let updatedCart: Product[] = [];
+
       if (!productExists) {
         const response = await api.get<Product>(`/products/${productId}`);
 
-        const updatedCart = [...cart, { ...response.data, amount: 1 }];
-        setCart(updatedCart);
-        localStorage.setItem("@RocketShoes:cart", JSON.stringify(updatedCart));
+        updatedCart = [...cart, { ...response.data, amount: 1 }];
       } else {
-        // productExists.amount += 1;
-        const updatedCart = cart.map((product) =>
+        updatedCart = cart.map((product) =>
           product.id === productId
             ? { ...product, amount: product.amount + 1 }
             : product
         );
-
-        setCart(updatedCart);
-        localStorage.setItem("@RocketShoes:cart", JSON.stringify(updatedCart));
       }
+
+      setCart(updatedCart);
+      localStorage.setItem("@RocketShoes:cart", JSON.stringify(updatedCart));
     } catch {
       toast.error("Erro na adição do produto");
     }
