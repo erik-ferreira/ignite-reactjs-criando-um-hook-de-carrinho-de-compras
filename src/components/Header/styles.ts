@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const Container = styled.header`
   display: flex;
@@ -13,6 +13,11 @@ export const Container = styled.header`
     &:hover {
       opacity: 0.7;
     }
+  }
+
+  @media screen and (max-width: 515px) {
+    flex-direction: column;
+    gap: 20px;
   }
 `;
 
